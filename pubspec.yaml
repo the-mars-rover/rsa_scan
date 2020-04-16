@@ -1,0 +1,60 @@
+name: rsa_scan
+description: Scan identity documents such as South African ID Cards, ID Books and Driver's Licenses.
+version: 0.0.1
+author: marcus.bornman@gmail.com
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # A Dart Library for decoding and providing South African identification details from documents such as Driver's licenses and Smart ID's.
+  # See https://pub.dev/packages/rsa_identification
+  rsa_identification: ^1.0.0
+
+  # A Flutter plugin to use the Firebase Core API, which enables connecting to multiple Firebase apps.
+  # See https://pub.dev/packages/firebase_core
+  firebase_core: ^0.4.4+3
+
+  # A Flutter plugin to use the ML Kit Vision for Firebase API.
+  # See https://pub.dev/packages/firebase_ml_vision
+  firebase_ml_vision: ^0.9.3+8
+
+  # A Flutter plugin for iOS and Android allowing access to the device cameras.
+  # See https://pub.dev/packages/camera
+  camera: ^0.5.7+4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+ assets:
+  - assets/
+
+  # To add custom fonts to your package, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts in packages, see
+  # https://flutter.dev/custom-fonts/#from-packages
