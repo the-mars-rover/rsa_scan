@@ -1,6 +1,6 @@
 name: rsa_scan
 description: Scan identity documents such as South African ID Cards, ID Books and Driver's Licenses.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/marcus-bornman/rsa_scan
 
 environment:
