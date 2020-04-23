@@ -20,7 +20,7 @@ dependencies:
 
   # A Flutter plugin to use the ML Kit Vision for Firebase API.
   # See https://pub.dev/packages/firebase_ml_vision
-  firebase_ml_vision: ^0.9.3+8
+  firebase_ml_vision_raw_bytes: 0.1.0
 
   # A Flutter plugin for iOS and Android allowing access to the device cameras.
   # See https://pub.dev/packages/camera

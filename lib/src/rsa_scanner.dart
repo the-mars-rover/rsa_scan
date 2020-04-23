@@ -27,7 +27,7 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
   bool _loading = true;
 
   /// The ID Card that has been successfully scanned.
-  RsaIdCard _scannedDocument;
+  RsaIdDocument _scannedDocument;
 
   /// True while the scanner is busy processing an image frame.
   bool _scannerBusy = false;

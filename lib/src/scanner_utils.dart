@@ -1,8 +1,6 @@
-import 'dart:typed_data';
-
+import 'package:firebase_ml_vision_raw_bytes/firebase_ml_vision_raw_bytes.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:rsa_identification/rsa_identification.dart';
 import 'package:rsa_scan/rsa_scan.dart';
 
@@ -44,26 +42,33 @@ class ScannerUtils {
   ///
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
   static Future<RsaDriversLicense> scanDrivers(CameraImage image) async {
-    final barcodes = await _scanBarcodes(image);
-    if (barcodes.isEmpty) {
+    try {
+      final barcodes = await _scanBarcodes(image);
+      if (barcodes.isEmpty) {
+        return null;
+      }
+
+      return RsaDriversLicense.fromBarcodeBytes(barcodes.first.rawBytes);
+    } catch (e) {
       return null;
     }
-
-    // TODO: Provide raw bytes to RsaDriversLicense when available
-    return RsaDriversLicense.fromBarcodeBytes(Uint8List.fromList([]));
   }
 
   /// Scan the given [image] for an Passport.
   ///
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
   static Future<RsaIdCard> scanPassport(CameraImage image) async {
-    final visionText = await _scanText(image);
-    if (visionText.text.isEmpty) {
+    try {
+      final visionText = await _scanText(image);
+      if (visionText.text.isEmpty) {
+        return null;
+      }
+
+      // TODO: Get passport from text
+      return null;
+    } catch (e) {
       return null;
     }
-
-    // TODO: Get passport from text
-    return null;
   }
 
   /// Scans the given [image] for any barcodes and returns all the barcodes that were found.

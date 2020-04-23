@@ -99,13 +99,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
-  firebase_ml_vision:
+  firebase_ml_vision_raw_bytes:
     dependency: "direct main"
     description:
-      name: firebase_ml_vision
+      name: firebase_ml_vision_raw_bytes
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.3+8"
+    version: "0.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
