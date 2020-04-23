@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:rsa_identification/rsa_identification.dart';
+import 'package:rsa_scan/rsa_scan.dart';
 
 /// Some utilities for scanning [CameraImage]'s for identity documents.
 class ScannerUtils {
@@ -40,16 +43,26 @@ class ScannerUtils {
   /// Scan the given [image] for a Driver's license.
   ///
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
-  static Future<RsaIdCard> scanDrivers(CameraImage image) async {
-    // TODO: Implement Scanning for Driver's License
-    return null;
+  static Future<RsaDriversLicense> scanDrivers(CameraImage image) async {
+    final barcodes = await _scanBarcodes(image);
+    if (barcodes.isEmpty) {
+      return null;
+    }
+
+    // TODO: Provide raw bytes to RsaDriversLicense when available
+    return RsaDriversLicense.fromBarcodeBytes(Uint8List.fromList([]));
   }
 
-  /// Scan the given [image] for an ID Card.
+  /// Scan the given [image] for an Passport.
   ///
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
   static Future<RsaIdCard> scanPassport(CameraImage image) async {
-    // TODO: Implement Scanning for Passport
+    final visionText = await _scanText(image);
+    if (visionText.text.isEmpty) {
+      return null;
+    }
+
+    // TODO: Get passport from text
     return null;
   }
 
@@ -57,22 +70,30 @@ class ScannerUtils {
   ///
   /// May throw an [Exception] if something went wrong.
   static Future<List<Barcode>> _scanBarcodes(CameraImage image) async {
-    final FirebaseVisionImageMetadata metadata = _buildMetaData(image);
-
-    final FirebaseVisionImage visionImage =
-        FirebaseVisionImage.fromBytes(image.planes[0].bytes, metadata);
+    final visionImage = _buildVisionImage(image);
     final barcodeReader = FirebaseVision.instance.barcodeDetector();
     final barcodes = await barcodeReader.detectInImage(visionImage);
 
     return barcodes;
   }
 
+  /// Scans the given [image] for any machine readable zones and returns all the barcodes that were found.
+  ///
+  /// May throw an [Exception] if something went wrong.
+  static Future<VisionText> _scanText(CameraImage image) async {
+    final visionImage = _buildVisionImage(image);
+    final textReader = FirebaseVision.instance.textRecognizer();
+    final visionText = await textReader.processImage(visionImage);
+
+    return visionText;
+  }
+
   /// Converts the given [image] into a [FirebaseVisionImageMetadata] object
   /// and returns the object.
   ///
   /// May throw an [Exception] if something went wrong.
-  static FirebaseVisionImageMetadata _buildMetaData(CameraImage image) {
-    return FirebaseVisionImageMetadata(
+  static FirebaseVisionImage _buildVisionImage(CameraImage image) {
+    final metadata = FirebaseVisionImageMetadata(
         rawFormat: image.format.raw,
         size: Size(image.width.toDouble(), image.height.toDouble()),
         planeData: image.planes
@@ -82,5 +103,7 @@ class ScannerUtils {
                 width: currentPlane.width))
             .toList(),
         rotation: ImageRotation.rotation90);
+
+    return FirebaseVisionImage.fromBytes(image.planes[0].bytes, metadata);
   }
 }
