@@ -37,6 +37,22 @@ class ScannerUtils {
     }
   }
 
+  /// Scan the given [image] for a Driver's license.
+  ///
+  /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
+  static Future<RsaIdCard> scanDrivers(CameraImage image) async {
+    // TODO: Implement Scanning for Driver's License
+    return null;
+  }
+
+  /// Scan the given [image] for an ID Card.
+  ///
+  /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
+  static Future<RsaIdCard> scanPassport(CameraImage image) async {
+    // TODO: Implement Scanning for Passport
+    return null;
+  }
+
   /// Scans the given [image] for any barcodes and returns all the barcodes that were found.
   ///
   /// May throw an [Exception] if something went wrong.
