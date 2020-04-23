@@ -152,18 +152,6 @@ class _RsaIdCardScannerState extends State<RsaIdCardScanner>
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Text(
-            'Hold the ID card in front of the camera as shown',
-            style: Theme.of(context).primaryTextTheme.title.copyWith(
-                  color: Colors.black,
-                ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
     );
   }
 }
