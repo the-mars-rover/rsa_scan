@@ -5,6 +5,7 @@ library rsa_scan;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rsa_identification/rsa_identification.dart';
+import 'package:rsa_scan/src/rsa_drivers_scanner.dart';
 import 'package:rsa_scan/src/rsa_id_book_scanner.dart';
 import 'package:rsa_scan/src/rsa_id_card_scanner.dart';
 import 'package:rsa_scan/src/rsa_scanner.dart';
@@ -42,4 +43,15 @@ Future<RsaIdCard> scanIdCard(BuildContext context) async {
   ));
 
   return scannedIdCard;
+}
+
+/// A function for scanning a South African Drivers License.
+///
+/// Returns the scanned [RsaIdCard] or null if nothing was scanned.
+Future<RsaDriversLicense> scanDrivers(BuildContext context) async {
+  final scannedDrivers = await Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => RsaDriversScanner(),
+  ));
+
+  return scannedDrivers;
 }
