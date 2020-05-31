@@ -8,7 +8,7 @@ import 'package:flutter/scheduler.dart';
 import '../rsa_scan.dart';
 import 'scanner_utils.dart';
 
-enum IdDocumentType { idCard, idBook, driversLicense, passport }
+enum IdDocumentType { idCard, idBook, driversLicense }
 
 /// Used to scan ID Cards.
 ///
@@ -112,9 +112,6 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
       case IdDocumentType.driversLicense:
         scannedDocument = await ScannerUtils.scanDrivers(availableImage);
         break;
-      case IdDocumentType.passport:
-        scannedDocument = await ScannerUtils.scanPassport(availableImage);
-        break;
     }
     if (scannedDocument != null) {
       setState(() {
@@ -168,31 +165,25 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
                   switch (_selectedType) {
                     case IdDocumentType.idCard:
                       return Image.asset(
-                        'assets/sample_id_card.png',
+                        'assets/sample_id_card.jpg',
                         package: 'rsa_scan',
                         fit: BoxFit.fitWidth,
                       );
                     case IdDocumentType.idBook:
                       return Image.asset(
-                        'assets/sample_id_book.jpg',
+                        'assets/sample_id_book.jpeg',
                         package: 'rsa_scan',
                         fit: BoxFit.fitWidth,
                       );
                     case IdDocumentType.driversLicense:
                       return Image.asset(
-                        'assets/sample_id_card.png',
-                        package: 'rsa_scan',
-                        fit: BoxFit.fitWidth,
-                      );
-                    case IdDocumentType.passport:
-                      return Image.asset(
-                        'assets/sample_id_book.jpg',
+                        'assets/sample_drivers.jpg',
                         package: 'rsa_scan',
                         fit: BoxFit.fitWidth,
                       );
                     default:
                       return Image.asset(
-                        'assets/sample_id_card.png',
+                        'assets/sample_id_card.jpg',
                         package: 'rsa_scan',
                         fit: BoxFit.fitWidth,
                       );
@@ -225,10 +216,6 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
           BottomNavigationBarItem(
             icon: Icon(Icons.drive_eta),
             title: Text('Driver\'s'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.language),
-            title: Text('Passport'),
           ),
         ],
       ),

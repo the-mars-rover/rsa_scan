@@ -144,7 +144,7 @@ class _RsaDriversScannerState extends State<RsaDriversScanner>
             child: Opacity(
               opacity: 0.4,
               child: Image.asset(
-                'assets/sample_id_card.png',
+                'assets/sample_drivers.jpg',
                 package: 'rsa_scan',
                 fit: BoxFit.fitWidth,
               ),

@@ -144,7 +144,7 @@ class _RsaIdCardScannerState extends State<RsaIdCardScanner>
             child: Opacity(
               opacity: 0.4,
               child: Image.asset(
-                'assets/sample_id_card.png',
+                'assets/sample_id_card.jpg',
                 package: 'rsa_scan',
                 fit: BoxFit.fitWidth,
               ),
