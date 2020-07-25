@@ -1,6 +1,6 @@
 name: rsa_scan
 description: Scan identity documents such as South African ID Cards, ID Books and Driver's Licenses.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/marcus-bornman/rsa_scan
 
 environment:
@@ -24,7 +24,7 @@ dependencies:
 
   # A Flutter plugin for iOS and Android allowing access to the device cameras.
   # See https://pub.dev/packages/camera
-  camera: ^0.5.7+4
+  camera: ^0.5.8+2
 
 dev_dependencies:
   flutter_test:
