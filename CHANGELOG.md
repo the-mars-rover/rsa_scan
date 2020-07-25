@@ -1,3 +1,8 @@
+## [0.0.4]
+
+- Updated to the latest version of the camera package
+- Improved the quality of the camera preview
+
 ## [0.0.3]
 
 - Updated sample ID Document Overlays
