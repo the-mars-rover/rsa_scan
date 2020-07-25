@@ -131,14 +131,23 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
       return Container();
     }
 
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         alignment: FractionalOffset.center,
         children: <Widget>[
-          Positioned.fill(
-            child: AspectRatio(
-                aspectRatio: _cameraController.value.aspectRatio,
-                child: CameraPreview(_cameraController)),
+          ClipRect(
+            child: Container(
+              child: Transform.scale(
+                scale: _cameraController.value.aspectRatio / size.aspectRatio,
+                child: Center(
+                  child: AspectRatio(
+                    aspectRatio: _cameraController.value.aspectRatio,
+                    child: CameraPreview(_cameraController),
+                  ),
+                ),
+              ),
+            ),
           ),
           Positioned.fill(
             child: Opacity(
