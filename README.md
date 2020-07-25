@@ -5,7 +5,7 @@ Scan identity documents such as South African ID Cards, ID Books and Driver's Li
 ## Supported Documents
 * [x] South African ID Cards
 * [x] South African ID Books
-* [ ] South African Driver's Licenses
+* [X] South African Driver's Licenses
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ print(idCard.idNumber);
 print(idCard.firstNames);
 print(idCard.surname);
 print(idCard.gender);
-// etc. (More fields are available)
+// See the API reference for the full set of available properties
 ```
 
 A simple usage example of `scanIdBook`:
@@ -72,6 +72,20 @@ print(idBook.idNumber);
 print(idBook.birthDate);
 print(idBook.gender);
 print(idBook.citizenshipStatus);
+// See the API reference for the full set of available properties
+```
+
+A simple usage example of `scanIdBook`:
+
+```dart
+import 'package:rsa_scan/rsa_scan.dart';
+
+RsaDriversLicense driversLicense = await scanDrivers(context);
+print(driversLicense.idNumber);
+print(driversLicense.birthDate);
+print(driversLicense.gender);
+print(driversLicense.citizenshipStatus);
+// See the API reference for the full set of available properties
 ```
 
 For a more comprehensive example, please see [the example application](/example)
