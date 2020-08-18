@@ -1,6 +1,6 @@
 name: rsa_scan
 description: Scan identity documents such as South African ID Cards, ID Books and Driver's Licenses.
-version: 0.0.4
+version: 0.0.5
 homepage: https://github.com/marcus-bornman/rsa_scan
 
 environment:
@@ -16,7 +16,7 @@ dependencies:
 
   # A Flutter plugin to use the Firebase Core API, which enables connecting to multiple Firebase apps.
   # See https://pub.dev/packages/firebase_core
-  firebase_core: ^0.4.4+3
+  firebase_core: ^0.5.0
 
   # A Flutter plugin to use the ML Kit Vision for Firebase API.
   # See https://pub.dev/packages/firebase_ml_vision
