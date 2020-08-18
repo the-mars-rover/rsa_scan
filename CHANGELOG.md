@@ -1,5 +1,9 @@
 ## [0.0.4]
 
+- Updated to the latest version of the firebase core
+
+## [0.0.4]
+
 - Updated to the latest version of the camera package
 - Improved the quality of the camera preview
 
