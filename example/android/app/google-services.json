@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "480090329791",
+    "firebase_url": "https://rsa-scan-example.firebaseio.com",
+    "project_id": "rsa-scan-example",
+    "storage_bucket": "rsa-scan-example.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480090329791:android:b1d4d80504da95bc92ec0a",
+        "android_client_info": {
+          "package_name": "dev.born.rsa_scan_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480090329791-j8heh97hibkjakv6aljmdjcha8krsse0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVTeI-F8KQD5nh7KqfQX3tYgLbNvgcAy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480090329791-j8heh97hibkjakv6aljmdjcha8krsse0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "480090329791-niiagbislkvgv152sl9m5b4emuig3qs1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.born.rsaScanExample"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

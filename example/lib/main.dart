@@ -46,6 +46,20 @@ class HomePage extends StatelessWidget {
                 ));
               },
             ),
+            Container(height: 8.0),
+            RaisedButton(
+              child: Text('Scan Driver\'s License'),
+              onPressed: () async {
+                final drivers = await scanDrivers(context);
+
+                // Nothing was scanned
+                if (drivers == null) return;
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => DriversDetailsPage(rsaDrivers: drivers),
+                ));
+              },
+            ),
           ],
         ),
       ),
@@ -132,6 +146,97 @@ class IdBookDetailsPage extends StatelessWidget {
           Divider(),
           ListTile(
             title: Text('citizenshipStatus: ${rsaIdBook.citizenshipStatus}'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DriversDetailsPage extends StatelessWidget {
+  final RsaDriversLicense rsaDrivers;
+
+  const DriversDetailsPage({Key key, @required this.rsaDrivers})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Driver\'s License')),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            title: Text('licenseNumber: ${rsaDrivers.licenseNumber}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('idNumber: ${rsaDrivers.idNumber}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('idNumberType: ${rsaDrivers.idNumberType}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('idCountryOfIssue: ${rsaDrivers.idCountryOfIssue}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('firstNames: ${rsaDrivers.firstNames}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('surname: ${rsaDrivers.surname}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('birthDate: ${rsaDrivers.birthDate}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('gender: ${rsaDrivers.gender}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('driverRestrictions: ${rsaDrivers.driverRestrictions}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('issueDates: ${rsaDrivers.issueDates}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('licenseIssueNumber: ${rsaDrivers.licenseIssueNumber}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text(
+                'licenseCountryOfIssue: ${rsaDrivers.licenseCountryOfIssue}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('prdpCode: ${rsaDrivers.prdpCode}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('prdpExpiry: ${rsaDrivers.prdpExpiry}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('validFrom: ${rsaDrivers.validFrom}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('validTo: ${rsaDrivers.validTo}'),
+          ),
+          Divider(),
+          ListTile(
+            title: Text('vehicleCodes: ${rsaDrivers.vehicleCodes}'),
+          ),
+          Divider(),
+          ListTile(
+            title:
+                Text('vehicleRestrictions: ${rsaDrivers.vehicleRestrictions}'),
           ),
         ],
       ),
