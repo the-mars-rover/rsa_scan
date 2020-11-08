@@ -47,6 +47,6 @@
         <!-- Used for firebase ML Vision -->
         <meta-data
                 android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-                android:value="ocr,label,barcode,face" />
+                android:value="barcode" />
     </application>
 </manifest>
