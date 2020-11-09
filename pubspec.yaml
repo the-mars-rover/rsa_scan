@@ -21,11 +21,7 @@ dependencies:
   # A Flutter plugin to use the ML Kit Vision for Firebase API.
   # NOTE: We are using a custom version of this until this PR gets merged: https://github.com/FirebaseExtended/flutterfire/pull/2368
   # See https://pub.dev/packages/firebase_ml_vision
-  firebase_ml_vision:
-    git:
-      url: https://github.com/marcus-bornman/flutterfire.git
-      ref: ml-vision-add-raw-bytes-for-barcodes
-      path: packages/firebase_ml_vision
+  firebase_ml_vision_raw_bytes: ^0.10.0
 
   # A Flutter plugin for iOS and Android allowing access to the device cameras.
   # See https://pub.dev/packages/camera

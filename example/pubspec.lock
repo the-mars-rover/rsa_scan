@@ -92,14 +92,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.1"
-  firebase_ml_vision:
+  firebase_ml_vision_raw_bytes:
     dependency: transitive
     description:
-      path: "packages/firebase_ml_vision"
-      ref: ml-vision-add-raw-bytes-for-barcodes
-      resolved-ref: b89a177ddb3acbb2f609ebed07993d655e4d0836
-      url: "https://github.com/marcus-bornman/flutterfire.git"
-    source: git
+      name: firebase_ml_vision_raw_bytes
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.10.0"
   flutter:
     dependency: "direct main"
@@ -171,7 +169,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.5"
+    version: "0.1.0"
   sky_engine:
     dependency: transitive
     description: flutter

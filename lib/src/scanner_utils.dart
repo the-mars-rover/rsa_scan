@@ -1,5 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'package:firebase_ml_vision_raw_bytes/firebase_ml_vision_raw_bytes.dart';
 import 'package:flutter/material.dart';
 import 'package:rsa_identification/rsa_identification.dart';
 import 'package:rsa_scan/rsa_scan.dart';
