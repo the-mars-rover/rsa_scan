@@ -43,7 +43,7 @@
 </p>
 
 This project provides a [Flutter package](https://flutter.dev/docs/development/packages-and-plugins) for scanning South
-African identification documents such as South African. Supported documents include:
+African identification documents. Supported documents include:
 * [x] South African ID Cards
 * [x] South African ID Books
 * [X] South African Driver's Licenses
