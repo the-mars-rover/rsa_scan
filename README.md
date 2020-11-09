@@ -37,9 +37,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 <p align="center">
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_1.jpeg" width="150" alt="Screenshot 1" />
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_2.jpeg" width="100" alt="Screenshot 2" />
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_3.jpeg" width="150" alt="Screenshot 3" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_1.png" width="150" alt="Screenshot 1" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_2.png" width="100" alt="Screenshot 2" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/assets/screenshot_3.png" width="150" alt="Screenshot 3" />
 </p>
 
 This project provides a [Flutter package](https://flutter.dev/docs/development/packages-and-plugins) for scanning South
