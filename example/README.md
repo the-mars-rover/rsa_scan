@@ -37,9 +37,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 <p align="center">
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/example/master/assets/screenshot_1.png" width="200" alt="Screenshot 1" />
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/example/master/assets/screenshot_2.png" width="200" alt="Screenshot 2" />
-<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/example/master/assets/screenshot_3.png" width="200" alt="Screenshot 3" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/example/assets/screenshot_1.png" width="200" alt="Screenshot 1" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/example/assets/screenshot_2.png" width="200" alt="Screenshot 2" />
+<img src="https://raw.githubusercontent.com/born-ideas/rsa_scan/master/example/assets/screenshot_3.png" width="200" alt="Screenshot 3" />
 </p>
 
 This is an example project which demonstrates how to use the [rsa_scan](https://pub.dev/packages/rsa_scan) package.
