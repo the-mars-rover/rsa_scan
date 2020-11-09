@@ -1,3 +1,9 @@
+## [0.1.0]
+
+- Updated dependencies to latest
+- Fixed example app
+- Updated documentation
+
 ## [0.0.5]
 
 - Updated to the latest version of the firebase core
