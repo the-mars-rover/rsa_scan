@@ -1,3 +1,7 @@
+## [0.1.1]
+
+- Bumped version of firebase_ml_vision_raw_bytes
+
 ## [0.1.0]
 
 - Updated dependencies to latest
