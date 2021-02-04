@@ -1,3 +1,7 @@
+## [0.2.0]
+
+- Added optional overlay parameters to scanning for custom overlays
+
 ## [0.1.1]
 
 - Bumped version of firebase_ml_vision_raw_bytes
