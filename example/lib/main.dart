@@ -22,7 +22,16 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               child: Text('Scan ID Card'),
               onPressed: () async {
-                final idCard = await scanIdCard(context);
+                final idCard = await scanIdCard(
+                  context,
+                  overlay: Center(
+                    child: Container(
+                      width: 200.0,
+                      height: 300.0,
+                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
+                    ),
+                  ),
+                );
 
                 // Nothing was scanned
                 if (idCard == null) return;
@@ -36,7 +45,16 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               child: Text('Scan ID Book'),
               onPressed: () async {
-                final idBook = await scanIdBook(context);
+                final idBook = await scanIdBook(
+                  context,
+                  overlay: Center(
+                    child: Container(
+                      width: 200.0,
+                      height: 300.0,
+                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
+                    ),
+                  ),
+                );
 
                 // Nothing was scanned
                 if (idBook == null) return;
@@ -50,7 +68,16 @@ class HomePage extends StatelessWidget {
             RaisedButton(
               child: Text('Scan Driver\'s License'),
               onPressed: () async {
-                final drivers = await scanDrivers(context);
+                final drivers = await scanDrivers(
+                  context,
+                  overlay: Center(
+                    child: Container(
+                      width: 200.0,
+                      height: 300.0,
+                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
+                    ),
+                  ),
+                );
 
                 // Nothing was scanned
                 if (drivers == null) return;
