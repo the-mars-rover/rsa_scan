@@ -207,15 +207,15 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.credit_card),
-            title: Text('ID Card'),
+            label: 'ID Card',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            title: Text('ID Book'),
+            label: 'ID Book',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.drive_eta),
-            title: Text('Driver\'s'),
+            label: 'Driver\'s',
           ),
         ],
       ),
