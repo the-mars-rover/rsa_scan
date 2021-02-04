@@ -12,8 +12,29 @@ enum IdDocumentType { idCard, idBook, driversLicense }
 
 /// Used to scan ID Cards.
 ///
+/// - [idBookOverlay] is an optional widget to display as an overlay when scanning
+/// an ID Book. If not provided, a sample ID Book will be displayed as the overlay.
+///
+/// - [idCardOverlay] is an optional widget to display as an overlay when scanning
+/// an ID Card. If not provided, a sample ID Card will be displayed as the overlay.
+///
+/// - [driversOverlay] is an optional widget to display as an overlay when scanning
+/// a Driver's License. If not provided, a sample Driver's license will be displayed
+/// as the overlay.
+///
 /// Will pop with the [RsaIdCard] that was scanned or with null if nothing was scanned.
 class RsaScanner extends StatefulWidget {
+  final Widget idBookOverlay;
+  final Widget idCardOverlay;
+  final Widget driversOverlay;
+
+  const RsaScanner({
+    Key key,
+    this.idBookOverlay,
+    this.idCardOverlay,
+    this.driversOverlay,
+  }) : super(key: key);
+
   @override
   _RsaScannerState createState() => _RsaScannerState();
 }
@@ -157,40 +178,49 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
                 aspectRatio: _cameraController.value.aspectRatio,
                 child: CameraPreview(_cameraController)),
           ),
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.4,
-              child: Builder(
-                builder: (context) {
-                  switch (_selectedType) {
-                    case IdDocumentType.idCard:
-                      return Image.asset(
-                        'assets/sample_id_card.jpg',
-                        package: 'rsa_scan',
-                        fit: BoxFit.fitWidth,
-                      );
-                    case IdDocumentType.idBook:
-                      return Image.asset(
-                        'assets/sample_id_book.jpeg',
-                        package: 'rsa_scan',
-                        fit: BoxFit.fitWidth,
-                      );
-                    case IdDocumentType.driversLicense:
-                      return Image.asset(
-                        'assets/sample_drivers.jpg',
-                        package: 'rsa_scan',
-                        fit: BoxFit.fitWidth,
-                      );
-                    default:
-                      return Image.asset(
-                        'assets/sample_id_card.jpg',
-                        package: 'rsa_scan',
-                        fit: BoxFit.fitWidth,
-                      );
-                  }
-                },
-              ),
-            ),
+          Builder(
+            builder: (context) {
+              switch (_selectedType) {
+                case IdDocumentType.idCard:
+                  return Positioned.fill(
+                    child: Opacity(
+                      opacity: 0.4,
+                      child: widget.idCardOverlay ??
+                          Image.asset(
+                            'assets/sample_id_card.jpg',
+                            package: 'rsa_scan',
+                            fit: BoxFit.fitWidth,
+                          ),
+                    ),
+                  );
+                case IdDocumentType.idBook:
+                  return Positioned.fill(
+                    child: Opacity(
+                      opacity: 0.4,
+                      child: widget.idBookOverlay ??
+                          Image.asset(
+                            'assets/sample_id_book.jpeg',
+                            package: 'rsa_scan',
+                            fit: BoxFit.fitWidth,
+                          ),
+                    ),
+                  );
+                case IdDocumentType.driversLicense:
+                  return Positioned.fill(
+                    child: Opacity(
+                      opacity: 0.4,
+                      child: widget.driversOverlay ??
+                          Image.asset(
+                            'assets/sample_drivers.jpg',
+                            package: 'rsa_scan',
+                            fit: BoxFit.fitWidth,
+                          ),
+                    ),
+                  );
+                default:
+                  return null;
+              }
+            },
           ),
         ],
       ),

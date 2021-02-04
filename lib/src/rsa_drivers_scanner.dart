@@ -8,8 +8,16 @@ import 'package:rsa_scan/src/scanner_utils.dart';
 
 /// Used to scan ID Cards.
 ///
+/// - [overlay] is an optional widget to display as an overlay when scanning
+/// a Driver's License. If not provided, a sample Driver's license will be displayed
+/// as the overlay.
+///
 /// Will pop with the [RsaIdCard] that was scanned or with null if nothing was scanned.
 class RsaDriversScanner extends StatefulWidget {
+  final Widget overlay;
+
+  const RsaDriversScanner({Key key, this.overlay}) : super(key: key);
+
   @override
   _RsaDriversScannerState createState() => _RsaDriversScannerState();
 }
@@ -149,16 +157,17 @@ class _RsaDriversScannerState extends State<RsaDriversScanner>
               ),
             ),
           ),
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.4,
-              child: Image.asset(
-                'assets/sample_drivers.jpg',
-                package: 'rsa_scan',
-                fit: BoxFit.fitWidth,
+          widget.overlay ??
+              Positioned.fill(
+                child: Opacity(
+                  opacity: 0.4,
+                  child: Image.asset(
+                    'assets/sample_drivers.jpg',
+                    package: 'rsa_scan',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
-            ),
-          ),
         ],
       ),
     );

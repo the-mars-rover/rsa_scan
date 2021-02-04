@@ -8,8 +8,15 @@ import 'package:rsa_scan/src/scanner_utils.dart';
 
 /// Used to scan ID Books.
 ///
+/// - [overlay] is an optional widget to display as an overlay when scanning
+/// an ID Book. If not provided, a sample ID Book will be displayed as the overlay.
+///
 /// Will pop with the [RsaIdBook] that was scanned or with null if nothing was scanned.
 class RsaIdBookScanner extends StatefulWidget {
+  final Widget overlay;
+
+  const RsaIdBookScanner({Key key, this.overlay}) : super(key: key);
+
   @override
   _RsaIdBookScannerState createState() => _RsaIdBookScannerState();
 }
@@ -149,16 +156,17 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
               ),
             ),
           ),
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.4,
-              child: Image.asset(
-                'assets/sample_id_book.jpeg',
-                package: 'rsa_scan',
-                fit: BoxFit.fitWidth,
+          widget.overlay ??
+              Positioned.fill(
+                child: Opacity(
+                  opacity: 0.4,
+                  child: Image.asset(
+                    'assets/sample_id_book.jpeg',
+                    package: 'rsa_scan',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
-            ),
-          ),
         ],
       ),
     );
