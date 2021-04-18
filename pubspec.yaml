@@ -16,16 +16,17 @@ dependencies:
 
   # A Flutter plugin to use the Firebase Core API, which enables connecting to multiple Firebase apps.
   # See https://pub.dev/packages/firebase_core
-  firebase_core: ^0.5.2
+  firebase_core: ^1.0.3
 
   # A Flutter plugin to use the ML Kit Vision for Firebase API.
   # NOTE: We are using a custom version of this until this PR gets merged: https://github.com/FirebaseExtended/flutterfire/pull/2368
   # See https://pub.dev/packages/firebase_ml_vision
-  firebase_ml_vision_raw_bytes: ^0.10.1
+  firebase_ml_vision:
+    path: ../flutterfire/packages/firebase_ml_vision
 
   # A Flutter plugin for iOS and Android allowing access to the device cameras.
   # See https://pub.dev/packages/camera
-  camera: ^0.5.8+11
+  camera: ^0.8.1
 
 dev_dependencies:
   flutter_test:
