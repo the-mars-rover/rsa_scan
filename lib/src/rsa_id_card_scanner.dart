@@ -143,18 +143,21 @@ class _RsaIdCardScannerState extends State<RsaIdCardScanner>
       body: Stack(
         alignment: FractionalOffset.center,
         children: <Widget>[
-          ClipRect(
-            child: Container(
-              child: Transform.scale(
-                scale: _cameraController.value.aspectRatio / size.aspectRatio,
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: _cameraController.value.aspectRatio,
-                    child: CameraPreview(_cameraController),
-                  ),
-                ),
+          CameraPreview(_cameraController),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: Icon(Icons.clear),
+                    label: Text("CANCEL"),
+                  )
+                ],
               ),
-            ),
+            ],
           ),
           widget.overlay ??
               Positioned.fill(

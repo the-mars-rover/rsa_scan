@@ -138,37 +138,37 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
       return Container();
     }
 
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Stack(
-        alignment: FractionalOffset.center,
-        children: <Widget>[
-          ClipRect(
-            child: Container(
-              child: Transform.scale(
-                scale: _cameraController.value.aspectRatio / size.aspectRatio,
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: _cameraController.value.aspectRatio,
-                    child: CameraPreview(_cameraController),
-                  ),
+    return Stack(
+      alignment: FractionalOffset.center,
+      children: <Widget>[
+        CameraPreview(_cameraController),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(Icons.clear),
+                  label: Text("CANCEL"),
+                )
+              ],
+            ),
+          ],
+        ),
+        widget.overlay ??
+            Positioned.fill(
+              child: Opacity(
+                opacity: 0.4,
+                child: Image.asset(
+                  'assets/sample_id_book.jpeg',
+                  package: 'rsa_scan',
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             ),
-          ),
-          widget.overlay ??
-              Positioned.fill(
-                child: Opacity(
-                  opacity: 0.4,
-                  child: Image.asset(
-                    'assets/sample_id_book.jpeg',
-                    package: 'rsa_scan',
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
-        ],
-      ),
+      ],
     );
   }
 }
