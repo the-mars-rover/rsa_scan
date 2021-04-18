@@ -1,7 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rsa_scan/rsa_scan.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MaterialApp(
       title: 'Example App',
@@ -19,7 +23,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan ID Card'),
               onPressed: () async {
                 final idCard = await scanIdCard(
@@ -42,7 +46,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             Container(height: 8.0),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan ID Book'),
               onPressed: () async {
                 final idBook = await scanIdBook(
@@ -65,7 +69,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             Container(height: 8.0),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan Driver\'s License'),
               onPressed: () async {
                 final drivers = await scanDrivers(
