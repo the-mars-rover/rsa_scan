@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>480090329791-niiagbislkvgv152sl9m5b4emuig3qs1.apps.googleusercontent.com</string>
+	<string>480090329791-c4up3o59uf9mhqhjjtm6ge884n4svo3s.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.480090329791-niiagbislkvgv152sl9m5b4emuig3qs1</string>
+	<string>com.googleusercontent.apps.480090329791-c4up3o59uf9mhqhjjtm6ge884n4svo3s</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBz0vYgooth4rfm9RHk3YCVYGT8cXYzUUc</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>dev.born.rsaScanExample</string>
+	<string>dev.born.rsa-scan-example</string>
 	<key>PROJECT_ID</key>
 	<string>rsa-scan-example</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:480090329791:ios:df82b49182e0e3a792ec0a</string>
+	<string>1:480090329791:ios:edf0695324fbd17292ec0a</string>
 	<key>DATABASE_URL</key>
 	<string>https://rsa-scan-example.firebaseio.com</string>
 </dict>
