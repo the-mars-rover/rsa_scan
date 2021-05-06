@@ -79,7 +79,7 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
       cameras.firstWhere(
           (camera) => camera.lensDirection == CameraLensDirection.back),
       ResolutionPreset.max,
-    );
+        enableAudio: false);
     await _cameraController.initialize();
     if (!mounted) {
       return;
@@ -113,6 +113,9 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
     _scannerBusy = false;
   }
 
+  bool flashEnabled = false;
+  Icon flashIcon = Icon(Icons.flash_off, color: Colors.white);
+
   /// The build method.
   ///
   /// If [_loading] is true (ie. the camera is still being initialized),
@@ -138,36 +141,36 @@ class _RsaIdBookScannerState extends State<RsaIdBookScanner>
       return Container();
     }
 
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        alignment: FractionalOffset.center,
-        children: <Widget>[
-          ClipRect(
-            child: Container(
-              child: Transform.scale(
-                scale: _cameraController.value.aspectRatio / size.aspectRatio,
-                child: Center(
-                  child: AspectRatio(
-                    aspectRatio: _cameraController.value.aspectRatio,
-                    child: CameraPreview(_cameraController),
-                  ),
-                ),
-              ),
-            ),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(
+            alignment: AlignmentDirectional.topCenter,
+            children: [
+              CameraPreview(_cameraController),
+              GestureDetector(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: flashIcon,
           ),
-          widget.overlay ??
-              Positioned.fill(
-                child: Opacity(
-                  opacity: 0.4,
-                  child: Image.asset(
-                    'assets/sample_id_book.jpeg',
-                    package: 'rsa_scan',
-                    fit: BoxFit.fitWidth,
+                onTap: () {
+                  setState(() {
+                    flashEnabled = !flashEnabled;
+                    if (flashEnabled) {
+                      _cameraController.setFlashMode(FlashMode.torch);
+                      flashIcon = Icon(Icons.flash_on, color: Colors.yellow);
+                    } else {
+                      _cameraController.setFlashMode(FlashMode.off);
+                      flashIcon = Icon(Icons.flash_off, color: Colors.white);
+                    }
+                  });
+                },
                   ),
+            ],
                 ),
               ),
-        ],
       ),
     );
   }

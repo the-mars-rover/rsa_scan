@@ -11,7 +11,7 @@ class ScannerUtils {
   /// Returns the [RsaIdBook] that was scanned or null if no ID Book was found.
   static Future<RsaIdBook> scanIdBook(CameraImage image) async {
     try {
-      final barcodes = await _scanBarcodes(image);
+      final barcodes = await _scanBarcodes(image, BarcodeFormat.all);
       if (barcodes.isEmpty) {
         return null;
       }
@@ -27,7 +27,7 @@ class ScannerUtils {
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
   static Future<RsaIdCard> scanIdCard(CameraImage image) async {
     try {
-      final barcodes = await _scanBarcodes(image);
+      final barcodes = await _scanBarcodes(image, BarcodeFormat.pdf417);
       if (barcodes.isEmpty) {
         return null;
       }
@@ -43,7 +43,7 @@ class ScannerUtils {
   /// Returns the [RsaIdCard] that was scanned or null if no ID Book was found.
   static Future<RsaDriversLicense> scanDrivers(CameraImage image) async {
     try {
-      final barcodes = await _scanBarcodes(image);
+      final barcodes = await _scanBarcodes(image, BarcodeFormat.pdf417);
       if (barcodes.isEmpty) {
         return null;
       }
@@ -74,9 +74,14 @@ class ScannerUtils {
   /// Scans the given [image] for any barcodes and returns all the barcodes that were found.
   ///
   /// May throw an [Exception] if something went wrong.
-  static Future<List<Barcode>> _scanBarcodes(CameraImage image) async {
+  static Future<List<Barcode>> _scanBarcodes(
+      CameraImage image, BarcodeFormat barcodeFormat) async {
     final visionImage = _buildVisionImage(image);
-    final barcodeReader = FirebaseVision.instance.barcodeDetector();
+
+    BarcodeDetectorOptions options =
+        BarcodeDetectorOptions(barcodeFormats: barcodeFormat);
+
+    final barcodeReader = FirebaseVision.instance.barcodeDetector(options);
     final barcodes = await barcodeReader.detectInImage(visionImage);
 
     return barcodes;
