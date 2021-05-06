@@ -99,7 +99,7 @@ class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
       cameras.firstWhere(
           (camera) => camera.lensDirection == CameraLensDirection.back),
       ResolutionPreset.max,
-    );
+        enableAudio: false);
     await _cameraController.initialize();
     if (!mounted) {
       return;
