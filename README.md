@@ -50,7 +50,6 @@ African identification documents. Supported documents include:
 
 ### Built With
 * [Flutter](https://flutter.dev/)
-* [Firebase](https://firebase.google.com)
 * [ML Kit](https://developers.google.com/ml-kit)
 
 
@@ -65,48 +64,27 @@ within a Flutter App. A few resources to get you started with your first Flutter
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-Also, because this plugin makes use of Firebase ML Vision for scanning, you must [configure Firebase for your project](https://firebase.google.com/docs/flutter/setup). 
-
 ### Installation
 
 Add `rsa_scan` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
 #### iOS
 
-First, [configure Firebase for your iOS project](https://firebase.google.com/docs/flutter/setup?platform=ios).
+iOS 10.0 of higher is needed to use the camera plugin. If compiling for any version lower than 10.0 make sure to check the iOS version before using the camera plugin. For example, using the [device_info](https://pub.dev/packages/device_info) plugin.
 
-Then, this package requires a minimum deployment target of 9.0. You can add the line platform :ios, '9.0' in your iOS project
-Podfile. You may also need to update your app's deployment target to 9.0 using Xcode. Otherwise, you may see compilation errors.
-
-Finally, include `MLVisionBarcodeModel` in your Podfile. Then run pod update in a terminal within the same directory as your Podfile.
-```
-pod 'Firebase/MLVisionBarcodeModel'
+Also, add one row to the `ios/Runner/Info.plist` with the key `Privacy - Camera Usage Description` and a usage description. Or in text format add the key:
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Can I use the camera please?</string>
 ```
 
 #### Android
 
-First, [configure Firebase for your Android project](https://firebase.google.com/docs/flutter/setup?platform=android).
+Change the minimum Android sdk version to 21 (or higher) in your `android/app/build.gradle` file.
 
-Then, you will need to add the following dependencies in your app-level build.gradle file:
 ```
-android{
-    dependencies {
-        ...
-        implementation 'com.google.android.gms:play-services-vision:20.1.0'
-        implementation 'com.google.android.gms:play-services-vision-common:19.1.0'
-    }
-}
-``` 
-
-Finally, add the following declaration to your app's AndroidManifest.xml file:
+minSdkVersion 21
 ```
-<application ...>
-    <!-- Used for firebase ML Vision -->
-    <meta-data
-            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="barcode" />
-</application>
-``` 
 
 
 <!-- USAGE EXAMPLES -->
@@ -195,5 +173,6 @@ Project Link: [https://github.com/born-ideas/rsa_scan](https://github.com/born-i
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
 * [rsa_identification](https://pub.dev/packages/rsa_identification)
+* [Google-Ml-Kit-plugin](https://github.com/bharat-biradar/Google-Ml-Kit-plugin)
 * [Shields IO](https://shields.io)
 * [Open Source Licenses](https://choosealicense.com)

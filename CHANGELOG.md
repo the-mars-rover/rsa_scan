@@ -1,3 +1,8 @@
+## [0.3.0]
+
+- Remover overlay options
+- Removed firebase in favor of built-in ml_kit
+
 ## [0.2.0]
 
 - Added optional overlay parameters to scanning for custom overlays

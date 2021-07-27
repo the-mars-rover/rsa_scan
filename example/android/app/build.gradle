@@ -24,6 +24,7 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.android.gms.strict-version-matcher-plugin'
 
 android {
     compileSdkVersion 29
@@ -52,11 +53,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-
-    dependencies {
-        implementation 'com.google.android.gms:play-services-vision:20.1.0'
-        implementation 'com.google.android.gms:play-services-vision-common:19.1.0'
-    }
 }
 
 flutter {
@@ -67,4 +63,3 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-apply plugin: 'com.google.gms.google-services'

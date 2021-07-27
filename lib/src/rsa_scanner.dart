@@ -1,254 +1,134 @@
-import 'dart:async';
-
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:rsa_identification/rsa_identification.dart';
+import 'package:rsa_scan/rsa_scan.dart';
 
-import '../rsa_scan.dart';
-import 'scanner_utils.dart';
-
-enum IdDocumentType { idCard, idBook, driversLicense }
-
-/// Used to scan ID Cards.
-///
-/// - [idBookOverlay] is an optional widget to display as an overlay when scanning
-/// an ID Book. If not provided, a sample ID Book will be displayed as the overlay.
-///
-/// - [idCardOverlay] is an optional widget to display as an overlay when scanning
-/// an ID Card. If not provided, a sample ID Card will be displayed as the overlay.
-///
-/// - [driversOverlay] is an optional widget to display as an overlay when scanning
-/// a Driver's License. If not provided, a sample Driver's license will be displayed
-/// as the overlay.
-///
-/// Will pop with the [RsaIdCard] that was scanned or with null if nothing was scanned.
-class RsaScanner extends StatefulWidget {
-  final Widget idBookOverlay;
-  final Widget idCardOverlay;
-  final Widget driversOverlay;
-
-  const RsaScanner({
-    Key key,
-    this.idBookOverlay,
-    this.idCardOverlay,
-    this.driversOverlay,
-  }) : super(key: key);
-
+abstract class RsaScanner extends StatefulWidget {
   @override
   _RsaScannerState createState() => _RsaScannerState();
+
+  RsaIdDocument documentFromBarcode(Barcode barcode);
+
+  String title();
+
+  String hint();
 }
 
-/// The state for the [RsaIdCardScanner] widget.
-class _RsaScannerState extends State<RsaScanner> with WidgetsBindingObserver {
-  /// The controller for the camera being used.
-  CameraController _cameraController;
+class _RsaScannerState extends State<RsaScanner> {
+  CameraController? _controller;
+  BarcodeScanner _barcodeScanner = GoogleMlKit.vision.barcodeScanner();
+  bool _isBusy = false;
+  RsaIdDocument? _scannedDocument;
 
-  /// True while the camera is being initialized.
-  bool _loading = true;
-
-  /// The ID Card that has been successfully scanned.
-  RsaIdDocument _scannedDocument;
-
-  /// True while the scanner is busy processing an image frame.
-  bool _scannerBusy = false;
-
-  /// The type of ID Document being scanned
-  IdDocumentType _selectedType = IdDocumentType.idCard;
-
-  /// The overridden initializer. Initializes the camera nd scanner when the widget
-  /// is first opened.
   @override
   void initState() {
     super.initState();
-    _initCameraAndScanner();
+    _startLiveFeed();
   }
 
-  /// The overridden dispose method. First, disposes [_cameraController].
   @override
   void dispose() {
-    _cameraController?.dispose();
+    _barcodeScanner.close();
+    _stopLiveFeed();
     super.dispose();
   }
 
-  /// The overridden didChangeAppLifecycleState method implemented to deal with some
-  /// issues associated with the camera plugin on android.
-  ///
-  /// Disposes [_cameraController] when the app is in the background and re-initializes
-  /// it when the app is back in the foreground.
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      _cameraController?.dispose();
-    }
-
-    if (state == AppLifecycleState.resumed) {
-      _initCameraAndScanner(); //// on pause camera is disposed, so we need to call again "issue is only for android"
-    }
-  }
-
-  /// The helper method for instantiating and initializing [_cameraController] and
-  /// starting the stream of image frames for scanning.
-  ///
-  /// Sets [_loading] to true at the start of the method and back to false when it is finished.
-  Future<void> _initCameraAndScanner() async {
-    setState(() => _loading = true);
-
-    final cameras = await availableCameras();
-    _cameraController = CameraController(
-      cameras.firstWhere(
-          (camera) => camera.lensDirection == CameraLensDirection.back),
-      ResolutionPreset.max,
-    );
-    await _cameraController.initialize();
-    if (!mounted) {
-      return;
-    }
-
-    await _cameraController.startImageStream(_scanImageFrame);
-
-    setState(() => _loading = false);
-  }
-
-  /// The helper method for scanning each image frame.
-  ///
-  /// If [_scannerBusy] is already true, this method will do nothing. Otherwise,
-  /// it will set [_scannerBusy] to true and scan the given image frame for an
-  /// ID Card before setting [_scannerBusy] back to false.
-  ///
-  /// Notably, if an ID Card is found in the given frame, [_scannerBusy] will
-  /// stay true.
-  Future<void> _scanImageFrame(CameraImage availableImage) async {
-    if (_scannerBusy) return;
-
-    _scannerBusy = true;
-    var scannedDocument;
-    switch (_selectedType) {
-      case IdDocumentType.idCard:
-        scannedDocument = await ScannerUtils.scanIdCard(availableImage);
-        break;
-      case IdDocumentType.idBook:
-        scannedDocument = await ScannerUtils.scanIdBook(availableImage);
-        break;
-      case IdDocumentType.driversLicense:
-        scannedDocument = await ScannerUtils.scanDrivers(availableImage);
-        break;
-    }
-    if (scannedDocument != null) {
-      setState(() {
-        this._scannedDocument = scannedDocument;
-      });
-
-      return;
-    }
-    _scannerBusy = false;
-  }
-
-  /// The build method.
-  ///
-  /// If [_loading] is true (ie. the camera is still being initialized),
-  /// A loading screen will be displayed.
-  ///
-  /// If [_scannedDocument] is not null (ie. An ID Card has been successfully scanned),
-  /// a PostFrameCallback is added to pop with the scanned ID Card as soon as the
-  /// build method is finished. In this case, the build function itself just
-  /// returns an empty Container.
-  ///
-  /// If [_loading] is false and [_scannedDocument] is still null, a camera preview
-  /// is shown with some indicators hinting at how to scan the ID Card.
   @override
   Widget build(BuildContext context) {
-    if (_loading) {
-      return Scaffold(body: Center(child: CircularProgressIndicator()));
-    }
-
-    if (_scannedDocument != null) {
-      SchedulerBinding.instance.addPostFrameCallback((timestamp) {
-        Navigator.of(context).pop(_scannedDocument);
-      });
-      return Container();
-    }
-
     return Scaffold(
-      body: Stack(
-        alignment: FractionalOffset.center,
-        children: <Widget>[
-          Positioned.fill(
-            child: AspectRatio(
-                aspectRatio: _cameraController.value.aspectRatio,
-                child: CameraPreview(_cameraController)),
-          ),
-          Builder(
-            builder: (context) {
-              switch (_selectedType) {
-                case IdDocumentType.idCard:
-                  return Positioned.fill(
-                    child: Opacity(
-                      opacity: 0.4,
-                      child: widget.idCardOverlay ??
-                          Image.asset(
-                            'assets/sample_id_card.jpg',
-                            package: 'rsa_scan',
-                            fit: BoxFit.fitWidth,
-                          ),
-                    ),
-                  );
-                case IdDocumentType.idBook:
-                  return Positioned.fill(
-                    child: Opacity(
-                      opacity: 0.4,
-                      child: widget.idBookOverlay ??
-                          Image.asset(
-                            'assets/sample_id_book.jpeg',
-                            package: 'rsa_scan',
-                            fit: BoxFit.fitWidth,
-                          ),
-                    ),
-                  );
-                case IdDocumentType.driversLicense:
-                  return Positioned.fill(
-                    child: Opacity(
-                      opacity: 0.4,
-                      child: widget.driversOverlay ??
-                          Image.asset(
-                            'assets/sample_drivers.jpg',
-                            package: 'rsa_scan',
-                            fit: BoxFit.fitWidth,
-                          ),
-                    ),
-                  );
-                default:
-                  return null;
-              }
-            },
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Theme.of(context).primaryColor,
-        showUnselectedLabels: true,
-        currentIndex: _selectedType.index,
-        onTap: (index) {
-          setState(() {
-            _selectedType = IdDocumentType.values.elementAt(index);
-          });
-        },
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.credit_card),
-            label: 'ID Card',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'ID Book',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.drive_eta),
-            label: 'Driver\'s',
-          ),
-        ],
+      body: _controller?.value.isInitialized == true
+          ? Container(
+              color: Colors.black,
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  CameraPreview(_controller!),
+                ],
+              ),
+            )
+          : Container(),
+      appBar: AppBar(title: Text(widget.title())),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(widget.hint(), textAlign: TextAlign.center),
+        ),
       ),
     );
+  }
+
+  Future _startLiveFeed() async {
+    final camera = await availableCameras().then((cameras) =>
+        cameras.firstWhere((c) => c.lensDirection == CameraLensDirection.back));
+    _controller =
+        CameraController(camera, ResolutionPreset.veryHigh, enableAudio: false);
+
+    _controller?.initialize().then((_) {
+      if (!mounted) return;
+      _controller?.startImageStream(_processCameraImage);
+      setState(() {});
+    });
+  }
+
+  Future _stopLiveFeed() async {
+    await _controller?.stopImageStream();
+    await _controller?.dispose();
+    _controller = null;
+  }
+
+  Future _processCameraImage(CameraImage image) async {
+    final inputImage = _inputImageFromCameraImage(image);
+    _tryScanDocumentFromImage(inputImage);
+  }
+
+  InputImage _inputImageFromCameraImage(CameraImage image) {
+    final WriteBuffer allBytes = WriteBuffer();
+    for (Plane plane in image.planes) {
+      allBytes.putUint8List(plane.bytes);
+    }
+    final bytes = allBytes.done().buffer.asUint8List();
+    final imageSize = Size(image.width.toDouble(), image.height.toDouble());
+    final imageRotation = InputImageRotationMethods.fromRawValue(
+            _controller!.description.sensorOrientation) ??
+        InputImageRotation.Rotation_0deg;
+    final inputImageFormat =
+        InputImageFormatMethods.fromRawValue(image.format.raw) ??
+            InputImageFormat.NV21;
+    final planeData = image.planes.map(
+      (Plane plane) {
+        return InputImagePlaneMetadata(
+          bytesPerRow: plane.bytesPerRow,
+          height: plane.height,
+          width: plane.width,
+        );
+      },
+    ).toList();
+    final data = InputImageData(
+      size: imageSize,
+      imageRotation: imageRotation,
+      inputImageFormat: inputImageFormat,
+      planeData: planeData,
+    );
+    final inputImage = InputImage.fromBytes(bytes: bytes, inputImageData: data);
+
+    return inputImage;
+  }
+
+  Future _tryScanDocumentFromImage(InputImage image) async {
+    if (_isBusy) return null;
+    _isBusy = true;
+    final barcodes = await _barcodeScanner.processImage(image);
+
+    for (Barcode barcode in barcodes) {
+      try {
+        _scannedDocument = widget.documentFromBarcode(barcode);
+        Navigator.of(context).pop(_scannedDocument);
+        return;
+      } catch (e) {}
+    }
+
+    _isBusy = false;
   }
 }

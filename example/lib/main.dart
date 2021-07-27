@@ -19,18 +19,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan ID Card'),
               onPressed: () async {
                 final idCard = await scanIdCard(
                   context,
-                  overlay: Center(
-                    child: Container(
-                      width: 200.0,
-                      height: 300.0,
-                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
-                    ),
-                  ),
                 );
 
                 // Nothing was scanned
@@ -42,19 +35,10 @@ class HomePage extends StatelessWidget {
               },
             ),
             Container(height: 8.0),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan ID Book'),
               onPressed: () async {
-                final idBook = await scanIdBook(
-                  context,
-                  overlay: Center(
-                    child: Container(
-                      width: 200.0,
-                      height: 300.0,
-                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
-                    ),
-                  ),
-                );
+                final idBook = await scanIdBook(context);
 
                 // Nothing was scanned
                 if (idBook == null) return;
@@ -65,19 +49,10 @@ class HomePage extends StatelessWidget {
               },
             ),
             Container(height: 8.0),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Scan Driver\'s License'),
               onPressed: () async {
-                final drivers = await scanDrivers(
-                  context,
-                  overlay: Center(
-                    child: Container(
-                      width: 200.0,
-                      height: 300.0,
-                      decoration: BoxDecoration(border: Border.all(width: 5.0)),
-                    ),
-                  ),
-                );
+                final drivers = await scanDrivers(context);
 
                 // Nothing was scanned
                 if (drivers == null) return;

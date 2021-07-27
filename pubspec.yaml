@@ -1,10 +1,10 @@
 name: rsa_scan
 description: Scan identity documents such as South African ID Cards, ID Books and Driver's Licenses.
-version: 0.2.0
+version: 0.3.0
 homepage: https://github.com/born-ideas/rsa_scan
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -12,20 +12,15 @@ dependencies:
 
   # A Dart Library for decoding and providing South African identification details from documents such as Driver's licenses and Smart ID's.
   # See https://pub.dev/packages/rsa_identification
-  rsa_identification: ^1.0.2
+  rsa_identification: 2.0.0
 
-  # A Flutter plugin to use the Firebase Core API, which enables connecting to multiple Firebase apps.
+  # A Flutter plugin to implement google's standalone ml kit made for mobile platform.
   # See https://pub.dev/packages/firebase_core
-  firebase_core: ^0.5.2
-
-  # A Flutter plugin to use the ML Kit Vision for Firebase API.
-  # NOTE: We are using a custom version of this until this PR gets merged: https://github.com/FirebaseExtended/flutterfire/pull/2368
-  # See https://pub.dev/packages/firebase_ml_vision
-  firebase_ml_vision_raw_bytes: ^0.10.1
+  google_ml_kit: ^0.7.0
 
   # A Flutter plugin for iOS and Android allowing access to the device cameras.
   # See https://pub.dev/packages/camera
-  camera: ^0.5.8+11
+  camera: ^0.8.1+3
 
 dev_dependencies:
   flutter_test:
