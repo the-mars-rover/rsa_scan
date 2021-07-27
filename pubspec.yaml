@@ -12,7 +12,7 @@ dependencies:
 
   # A Dart Library for decoding and providing South African identification details from documents such as Driver's licenses and Smart ID's.
   # See https://pub.dev/packages/rsa_identification
-  rsa_identification: 2.0.0
+  rsa_identification: ^2.0.0
 
   # A Flutter plugin to implement google's standalone ml kit made for mobile platform.
   # See https://pub.dev/packages/firebase_core
